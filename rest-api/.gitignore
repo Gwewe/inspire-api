@@ -35,3 +35,6 @@ build/
 
 ### Local properties ###
 local.properties
+
+### MY_NOTES ###
+MY_NOTES.md
