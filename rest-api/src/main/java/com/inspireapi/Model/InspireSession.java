@@ -16,4 +16,35 @@ public class InspireSession {
         this.createdAt = createdAt;
     }
 
+    // Getters
+    public UUID getSessionId() {
+        return sessionId;
+    }
+
+    public ModuleType getModuleType() {
+        return moduleType;
+    }
+
+    public String getModuleContent() {
+        return moduleContent;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    //Setters
+
+    public void setModuleType(ModuleType moduleType) {
+        this.moduleType = moduleType;
+    }
+
+    public void setModuleContent(String moduleContent) {
+        this.moduleContent = moduleContent;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
 }
