@@ -1,4 +1,4 @@
-package com.inspireapi;
+package com.inspireapi.Service;
 
 public class InspireSessionService {
     
