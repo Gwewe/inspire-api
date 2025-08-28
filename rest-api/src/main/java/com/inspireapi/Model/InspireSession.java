@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 public class InspireSession {
-    private UUID sessionId;
+    private final UUID sessionId;
     private ModuleType moduleType;
     private String moduleContent;
     private Instant createdAt;

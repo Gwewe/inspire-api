@@ -6,12 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import com.inspireapi.Service.InspireSessionService;
 
 
 @DisplayName("InspireAPI Basic Tests Suite")
 public class InspireAPITests {
+    @Mock
+        InspireSessionService inspireSessionService;
 
     @Test
     @DisplayName("Return a existing session with the 3 modules")
