@@ -3,6 +3,9 @@ package com.inspireapi.Model;
 import java.time.Instant;
 import java.util.UUID;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class InspireSession {
     private final UUID sessionId;
     private ModuleType moduleType;
