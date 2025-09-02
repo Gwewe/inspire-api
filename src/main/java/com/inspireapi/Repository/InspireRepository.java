@@ -17,22 +17,27 @@ public interface InspireRepository extends JpaRepository<InspireSession, UUID> {
 
 
     /**
-     * Session level
-     * Find a InspireSession by it's sessionId.
-     * @param sessionId the session ID
+     * The Session level
+     * Find a InspireSession by it's sessionId
+     * @param sessionId the session UUID
      * @return an Optional containing the InspireSession if found, or empty if not found
      */
 
     Optional<InspireSession> findBySessionId(UUID sessionId);
-    List<InspireSession> findAllSessionList(UUID sessionId);
 
     /**
-     * Module level
+     * The Module level
      * @param moduleType the module type
      * @return a list of InspireSessions matching the specified module type
      */
 
-    List<InspireSession> findByModuleType(String moduleType);
-    Optional<InspireSession> findModuleContentBySessionID(String moduleContent);
+    List<Module> findByModuleType(String moduleType);
+
+     /**
+     * Find all three modules belonging to a specific session.
+     * @param sessionId the UUID of the session
+     * @return list of modules for that session
+     */
+    List<Module> findModulesBySessionId(UUID sessionId);
 
 }
