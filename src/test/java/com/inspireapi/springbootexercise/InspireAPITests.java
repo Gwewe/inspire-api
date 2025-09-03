@@ -4,17 +4,34 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
+import com.inspireapi.Model.InspireSession;
+import com.inspireapi.Repository.InspireRepository;
 import com.inspireapi.Service.InspireSessionService;
+import com.inspireapi.Service.InspireSessionServiceImpl;
 
 
 @DisplayName("InspireAPI Basic Tests Suite")
 public class InspireAPITests {
-    @Mock
-        InspireSessionService inspireSessionService;
+
+   private InspireRepository inspireRepositoryMock;
+   private InspireSessionService inspireSessionServiceMock;
+   private InspireSession mockSessionOne;
+
+    
+   @BeforeEach
+    public void setUp() {
+        inspireRepositoryMock = Mockito.mock(InspireRepository.class);
+        inspireSessionServiceMock = new InspireSessionServiceImpl(inspireRepositoryMock);
+        mockSessionOne = new InspireSession();
+
+    }
 
     @Test
     @DisplayName("Return a existing session with the 3 modules")
