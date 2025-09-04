@@ -4,18 +4,25 @@ import java.time.Instant;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "inspire_sessions")
 public class InspireSession {
+
+    @Id
     private final UUID sessionId;
-    private ModuleType moduleType;
-    private String moduleContent;
+    private String breatheModuleContent;
+    private String learnModuleContent;
+    private String quoteModuleContent;
     private Instant createdAt;
 
-    public InspireSession(ModuleType moduleType, String moduleContent, Instant createdAt) {
-        this.sessionId = UUID.randomUUID();
-        this.moduleType = moduleType;
-        this.moduleContent = moduleContent;
+    public InspireSession(UUID sessionId, String breatheModuleContent, String learnModuleContent, String quoteModuleContent, Instant createdAt) {
+        this.sessionId = sessionId;
+        this.breatheModuleContent = breatheModuleContent;
+        this.learnModuleContent = learnModuleContent;
+        this.quoteModuleContent = quoteModuleContent;
         this.createdAt = createdAt;
     }
 
@@ -24,12 +31,16 @@ public class InspireSession {
         return sessionId;
     }
 
-    public ModuleType getModuleType() {
-        return moduleType;
+    public String getBreatheModuleContent() {
+        return breatheModuleContent;
     }
 
-    public String getModuleContent() {
-        return moduleContent;
+    public String getLearnModuleContent() {
+        return learnModuleContent;
+    }
+
+    public String getQuoteModuleContent() {
+        return quoteModuleContent;
     }
 
     public Instant getCreatedAt() {
@@ -38,12 +49,16 @@ public class InspireSession {
 
     //Setters
 
-    public void setModuleType(ModuleType moduleType) {
-        this.moduleType = moduleType;
+    public void setBreatheModuleContent(String breatheModuleContent) {
+        this.breatheModuleContent = breatheModuleContent;
     }
 
-    public void setModuleContent(String moduleContent) {
-        this.moduleContent = moduleContent;
+    public void setLearnModuleContent(String learnModuleContent) {
+        this.learnModuleContent = learnModuleContent;
+    }
+
+    public void setQuoteModuleContent(String quoteModuleContent) {
+        this.quoteModuleContent = quoteModuleContent;
     }
 
     public void setCreatedAt(Instant createdAt) {
@@ -51,3 +66,5 @@ public class InspireSession {
     }
 
 }
+
+ 
