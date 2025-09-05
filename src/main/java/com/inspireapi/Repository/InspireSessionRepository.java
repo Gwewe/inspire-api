@@ -36,7 +36,6 @@ public interface InspireSessionRepository extends JpaRepository<InspireSession, 
      * @param learnKeyword the keyword to search for in learnContent
      * @return a list of InspireSessions containing the keyword in learnContent
      */
-    @Query("SELECT session FROM InspireSession session WHERE LOWER(session.learnContent) LIKE LOWER(CONCAT('%', :learnKeyword, '%'))")
     List<InspireSession> findByLearnContentContainingIgnoreCase(String learnKeyword);
 
     /**
@@ -44,7 +43,6 @@ public interface InspireSessionRepository extends JpaRepository<InspireSession, 
      * @param quoteKeyword the keyword to search for in quoteContent
      * @return a list of InspireSessions containing the keyword in quoteContent
      */
-    @Query("SELECT session FROM InspireSession session WHERE LOWER(session.quoteContent) LIKE LOWER(CONCAT('%', :quoteKeyword, '%'))")
     List<InspireSession> findByQuoteContentContainingIgnoreCase(String quoteKeyword);
 
 
