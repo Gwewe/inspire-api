@@ -11,7 +11,7 @@ import com.inspireapi.Model.InspireSession;
 
 
 @Repository
-public interface InspireRepository extends JpaRepository<InspireSession, UUID> {
+public interface InspireSessionRepository extends JpaRepository<InspireSession, UUID> {
 
     //Repository interface, data access layer
 

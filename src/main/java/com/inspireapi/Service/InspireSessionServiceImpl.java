@@ -7,22 +7,22 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.inspireapi.Model.InspireSession;
-import com.inspireapi.Repository.InspireRepository;
+import com.inspireapi.Repository.InspireSessionRepository;
 
 
 @Service
 public class InspireSessionServiceImpl implements InspireSessionService {
 
-    private final InspireRepository inspireRepository;
+    private final InspireSessionRepository inspireSessionRepository;
 
-    public InspireSessionServiceImpl(InspireRepository inspireRepository) {
-        this.inspireRepository = inspireRepository;
+    public InspireSessionServiceImpl(InspireSessionRepository inspireSessionRepository) {
+        this.inspireSessionRepository = inspireSessionRepository;
     }
 
     @Override
     public List<InspireSession> getAllSessions(){
         try {
-            return inspireRepository.findAll();
+            return inspireSessionRepository.findAll();
         } catch (Exception e) {
             System.err.println("Error occured while retrieving the InspireSessions list: " + e.getMessage());
             return List.of();
@@ -32,7 +32,7 @@ public class InspireSessionServiceImpl implements InspireSessionService {
     @Override
     public Optional<InspireSession> getSessionById(UUID sessionId){
         try {
-            return inspireRepository.findBySessionId(sessionId);
+            return inspireSessionRepository.findBySessionId(sessionId);
         } catch (Exception e) {
             System.err.println("Error occured while retrieving the InspireSession by ID: " + sessionId + " - " + e.getMessage());
             return Optional.empty();
