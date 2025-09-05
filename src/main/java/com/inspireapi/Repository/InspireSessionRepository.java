@@ -5,19 +5,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.inspireapi.Model.InspireSession;
 
 
+
 @Repository
 public interface InspireSessionRepository extends JpaRepository<InspireSession, UUID> {
 
-    //Repository interface, data access layer
-
 
     /**
-     * The Session level
      * Find a InspireSession by it's sessionId
      * @param sessionId the session UUID
      * @return an Optional containing the InspireSession if found, or empty if not found
@@ -31,13 +30,16 @@ public interface InspireSessionRepository extends JpaRepository<InspireSession, 
      * @return a list of InspireSessions matching the specified module type
      */
 
-    List<Module> findByModuleType(String moduleType);
+    List<InspireSession> findAllSessions();
 
-     /**
-     * Find all three modules belonging to a specific session.
-     * @param sessionId the UUID of the session
-     * @return list of modules for that session
+
+    /**
+     * Search for Inspire sessions created before a specific timestamp.
+     * @param createdAt the creation timestamp
+     * @return a list of InspireSessions created before the specified timestamp
      */
-    List<Module> findModulesBySessionId(UUID sessionId);
+    @Query("SELECT t FROM InspireSession t WHERE t.createdAt < :createdAt")
+    List<InspireSession> findAllInspireSessionsOrderByCreatedAtAsc(String createdAt);
+
 
 }

@@ -22,6 +22,6 @@ public interface ModuleRepository extends JpaRepository<Module, UUID> {
      * @return a list of modules containing the specified keyword
      */
     @Query("SELECT m FROM Module m WHERE LOWER(m.module_content) LIKE LOWER(CONCAT('%', :keyword, '%'))")
-    List<Module> searchModuleByKeywordIgnoreCase(String keyword);
+    List<Module> searchModuleContentByKeywordIgnoreCase(String keyword);
 
 }
