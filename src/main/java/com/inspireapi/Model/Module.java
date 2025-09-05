@@ -15,7 +15,7 @@ public class Module {
 
     @Id
     @Column(name = "module_id")
-    private UUID moduleId;
+    private final UUID moduleId;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "module_type")
@@ -30,7 +30,7 @@ public class Module {
         this.moduleContent = moduleContent;
     }
 
-    // Getters
+    // The getters
 
     public UUID getModuleId() {
         return moduleId;
@@ -44,7 +44,7 @@ public class Module {
         return moduleContent;
     }
 
-    // Setters
+    // the setters
     public void setModuleType(ModuleType moduleType) {
         this.moduleType = moduleType;
     }

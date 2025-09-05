@@ -3,6 +3,7 @@ package com.inspireapi.Model;
 import java.time.Instant;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -12,17 +13,26 @@ import jakarta.persistence.Table;
 public class InspireSession {
 
     @Id
+    @Column(name = "session_id")
     private final UUID sessionId;
-    private String breatheModuleContent;
-    private String learnModuleContent;
-    private String quoteModuleContent;
+
+    @Column(name = "breathe_content")
+    private String breatheContent;
+
+    @Column(name = "learn_content")
+    private String learnContent;
+
+    @Column(name = "quote_content")
+    private String quoteContent;
+
+    @Column(name = "created_at")
     private Instant createdAt;
 
-    public InspireSession(UUID sessionId, String breatheModuleContent, String learnModuleContent, String quoteModuleContent, Instant createdAt) {
+    public InspireSession(UUID sessionId, String breatheContent, String learnContent, String quoteContent, Instant createdAt) {
         this.sessionId = sessionId;
-        this.breatheModuleContent = breatheModuleContent;
-        this.learnModuleContent = learnModuleContent;
-        this.quoteModuleContent = quoteModuleContent;
+        this.breatheContent = breatheContent;
+        this.learnContent = learnContent;
+        this.quoteContent = quoteContent;
         this.createdAt = createdAt;
     }
 
@@ -31,16 +41,16 @@ public class InspireSession {
         return sessionId;
     }
 
-    public String getBreatheModuleContent() {
-        return breatheModuleContent;
+    public String getBreatheContent() {
+        return breatheContent;
     }
 
-    public String getLearnModuleContent() {
-        return learnModuleContent;
+    public String getLearnContent() {
+        return learnContent;
     }
 
-    public String getQuoteModuleContent() {
-        return quoteModuleContent;
+    public String getQuoteContent() {
+        return quoteContent;
     }
 
     public Instant getCreatedAt() {
@@ -49,16 +59,16 @@ public class InspireSession {
 
     //Setters
 
-    public void setBreatheModuleContent(String breatheModuleContent) {
-        this.breatheModuleContent = breatheModuleContent;
+    public void setBreatheContent(String breatheContent) {
+        this.breatheContent = breatheContent;
     }
 
-    public void setLearnModuleContent(String learnModuleContent) {
-        this.learnModuleContent = learnModuleContent;
+    public void setLearnContent(String learnContent) {
+        this.learnContent = learnContent;
     }
 
-    public void setQuoteModuleContent(String quoteModuleContent) {
-        this.quoteModuleContent = quoteModuleContent;
+    public void setQuoteContent(String quoteContent) {
+        this.quoteContent = quoteContent;
     }
 
     public void setCreatedAt(Instant createdAt) {
