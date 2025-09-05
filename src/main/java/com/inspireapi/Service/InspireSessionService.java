@@ -31,6 +31,13 @@ public interface InspireSessionService {
     InspireSession createInspireSession(InspireSession inspireSession);
 
     /**
+     * Create a new Inspire Session from the modules provided.
+     * @param moduleIds the list of module IDs to include in the session
+     * @return the created InspireSession
+     */
+    InspireSession createInspireSessionFromModules (List<UUID> moduleIds);
+
+    /**
      * Update all modules for a single session.
      * @param sessionId the ID of the InspireSession to update
      * @param inspireSession the updated InspireSession data
