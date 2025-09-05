@@ -17,29 +17,35 @@ public interface InspireSessionRepository extends JpaRepository<InspireSession, 
 
 
     /**
-     * Find a InspireSession by it's sessionId
+     * Find an InspireSession by its sessionId
      * @param sessionId the session UUID
-     * @return an Optional containing the InspireSession if found, or empty if not found
+     * @return an Optional containing the InspireSession or empty if no InspireSession is found
      */
 
     Optional<InspireSession> findBySessionId(UUID sessionId);
 
     /**
-     * The Module level
-     * @param moduleType the module type
-     * @return a list of InspireSessions matching the specified module type
+     * Search for Inspire sessions containing a specific keyword in the breatheContent
+     * @param breatheKeyword the keyword to search for in breatheContent
+     * @return a list of InspireSessions containing the keyword in breatheContent
      */
-
-    List<InspireSession> findAllSessions();
-
+    List<InspireSession> findByBreatheContentContainingIgnoreCase(String breatheKeyword);
 
     /**
-     * Search for Inspire sessions created before a specific timestamp.
-     * @param createdAt the creation timestamp
-     * @return a list of InspireSessions created before the specified timestamp
+     * Search for Inspire sessions containing a specific keyword in the learnContent
+     * @param learnKeyword the keyword to search for in learnContent
+     * @return a list of InspireSessions containing the keyword in learnContent
      */
-    @Query("SELECT t FROM InspireSession t WHERE t.createdAt < :createdAt")
-    List<InspireSession> findAllInspireSessionsOrderByCreatedAtAsc(String createdAt);
+    @Query("SELECT session FROM InspireSession session WHERE LOWER(session.learnContent) LIKE LOWER(CONCAT('%', :learnKeyword, '%'))")
+    List<InspireSession> findByLearnContentContainingIgnoreCase(String learnKeyword);
+
+    /**
+     * Search for Inspire sessions containing a specific keyword in the quoteContent
+     * @param quoteKeyword the keyword to search for in quoteContent
+     * @return a list of InspireSessions containing the keyword in quoteContent
+     */
+    @Query("SELECT session FROM InspireSession session WHERE LOWER(session.quoteContent) LIKE LOWER(CONCAT('%', :quoteKeyword, '%'))")
+    List<InspireSession> findByQuoteContentContainingIgnoreCase(String quoteKeyword);
 
 
 }
