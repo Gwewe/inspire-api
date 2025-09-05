@@ -17,7 +17,7 @@ public interface ModuleRepository extends JpaRepository<Module, UUID> {
 
 
     /**
-     * Find all modules containing a specific keyword in their content, ignoring case.
+     * Find all modules containing a specific keyword in the module content, ignoring case.
      * @param keyword the keyword to search for
      * @return a list of modules containing the specified keyword
      */
