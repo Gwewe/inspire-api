@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.inspireapi.Model.ModuleType;
+
 public interface ModuleRepository extends JpaRepository<Module, UUID> {
 
     /**
@@ -12,7 +14,7 @@ public interface ModuleRepository extends JpaRepository<Module, UUID> {
      * @param moduleType the type of the module
      * @return a list of modules matching the specified type
      */
-    List<Module> findByModuleType(String moduleType);
+    List<Module> findByModuleType(ModuleType moduleType);
 
 
     /**
