@@ -46,8 +46,12 @@ public class InspireSessionServiceImpl implements InspireSessionService {
 
     @Override
     public InspireSession createInspireSession(InspireSession inspireSession) {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            return inspireSessionRepository.save(inspireSession);
+        } catch (RuntimeException err) {
+            logErr.error("Error occured while creating the Inspire session: ", inspireSession, err);
+            throw err;
+        }
     }
 
     @Override
