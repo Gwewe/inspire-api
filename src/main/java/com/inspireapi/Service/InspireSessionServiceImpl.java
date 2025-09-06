@@ -24,6 +24,8 @@ public class InspireSessionServiceImpl implements InspireSessionService {
     private final InspireSessionRepository inspireSessionRepository;
     private final ModuleRepository moduleRepository;
     private static final Logger logErr = LoggerFactory.getLogger(InspireSessionServiceImpl.class);
+    private static final Logger logInfo = LoggerFactory.getLogger(InspireSessionServiceImpl.class);
+
 
     public InspireSessionServiceImpl(InspireSessionRepository inspireSessionRepository, ModuleRepository moduleRepository) {
         this.inspireSessionRepository = inspireSessionRepository;
@@ -114,8 +116,15 @@ public class InspireSessionServiceImpl implements InspireSessionService {
 
     @Override
     public void deleteInspireSession(UUID sessionId) {
-        //todo
-        return null;
+        InspireSession inspireSession = inspireSessionRepository.findById(sessionId)
+        .orElseThrow(() -> new InspireSessionNotFound(String.format("Inspire session with ID %s not found", sessionId)));
+        try {
+            inspireSessionRepository.delete(inspireSession);
+            logInfo.info("The inspire session with ID {} has been deleted", sessionId);
+        } catch (RuntimeException err) {
+            logErr.error("Error occured while deleting the Inspire sessions {}", sessionId, err);
+            throw err;
+        }
     }
 
     @Override
