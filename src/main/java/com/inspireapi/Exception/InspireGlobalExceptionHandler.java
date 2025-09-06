@@ -30,31 +30,31 @@ public class InspireGlobalExceptionHandler {
 
     @ExceptionHandler(InspireSessionNotFound.class)
     public ResponseEntity<Object> handleInspireSessionNotFound(InspireSessionNotFound except, WebRequest request) {
-        loggerErr.warn("The provided Inspire session was not found", except);
+        loggerErr.warn("The provided Inspire session was not found {}", except);
         return buildResponse(HttpStatus.NOT_FOUND, except.getMessage(), request);
     }
 
     @ExceptionHandler(InvalidModuleTypeException.class)
     public ResponseEntity<Object> handleInvalidModuleTypeException(InvalidModuleTypeException except, WebRequest request) {
-        loggerErr.warn("The provided module type is invalid", except);
+        loggerErr.warn("The provided module type is invalid {}", except);
         return buildResponse(HttpStatus.BAD_REQUEST, except.getMessage(), request);
     }
 
     @ExceptionHandler(ModuleNotFoundException.class)
     public ResponseEntity<Object> handleModuleNotFoundException (ModuleNotFoundException except, WebRequest request) {
-        loggerErr.warn("The provided module type was not found", except);
+        loggerErr.warn("The provided module type was not found {}", except);
         return buildResponse(HttpStatus.NOT_FOUND, except.getMessage(), request);
     }
     
     @ExceptionHandler(InvalidPatchFieldNameException.class)
     public ResponseEntity<Object> handleInvalidPatchFieldNameException(InvalidPatchFieldNameException except, WebRequest request) {
-        loggerErr.warn("The provided patch field name is invalid", except);
+        loggerErr.warn("The provided patch field name is invalid {}", except);
         return buildResponse(HttpStatus.BAD_REQUEST, except.getMessage(), request);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAllOthersException(Exception except, WebRequest request) {
-        loggerErr.error("Unhandled exception: ", except);
+        loggerErr.error("Unhandled exception {} ", except);
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "My apologies, an unexpected error occurred", request);
     }
 
