@@ -47,7 +47,7 @@ public interface InspireSessionService {
      * @return the updated InspireSession, or null if not found
      * @throws InspireSessionNotFound if no Inspire session is found with the specified sessionId
      */
-    InspireSession updateInspireSession(UUID sessionId, InspireSession inspireSession);
+    InspireSession updateInspireSession(UUID sessionId, InspireSession updatedInspireSession);
 
     /**
      * Partial update of an existing Inspire session
