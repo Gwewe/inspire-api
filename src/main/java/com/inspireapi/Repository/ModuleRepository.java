@@ -1,11 +1,15 @@
 package com.inspireapi.Repository;
 
+
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.inspireapi.Model.Module;
 import com.inspireapi.Model.ModuleType;
+
+
 
 public interface ModuleRepository extends JpaRepository<Module, UUID> {
 
