@@ -34,12 +34,7 @@ public class InspireSessionServiceImpl implements InspireSessionService {
 
     @Override
     public List<InspireSession> getAllSessions() {
-        try {
-            return inspireSessionRepository.findAll();
-        } catch (RuntimeException err) {
-            logErr.error("Error occured while retrieving the InspireSessions list {} " + err);
-            return List.of();
-        }
+        return inspireSessionRepository.findAll();
     }
 
     @Override
@@ -53,7 +48,7 @@ public class InspireSessionServiceImpl implements InspireSessionService {
         try {
             return inspireSessionRepository.save(inspireSession);
         } catch (RuntimeException err) {
-            logErr.error("Error occured while creating the Inspire session {} ", inspireSession, err);
+            logErr.error("Error occurred while creating the Inspire session {} ", inspireSession, err);
             throw err;
         }
     }
@@ -108,7 +103,7 @@ public class InspireSessionServiceImpl implements InspireSessionService {
         try {
             return inspireSessionRepository.save(inspireSession);
         } catch (RuntimeException err) {
-            logErr.error("Error occured while updating the Inspire session {} ", sessionId, err);
+            logErr.error("Error occurred while updating the Inspire session {} ", sessionId, err);
             throw err;
         }
 
@@ -122,7 +117,7 @@ public class InspireSessionServiceImpl implements InspireSessionService {
             inspireSessionRepository.delete(inspireSession);
             logInfo.info("The inspire session with ID {} has been deleted", sessionId);
         } catch (RuntimeException err) {
-            logErr.error("Error occured while deleting the Inspire sessions {}", sessionId, err);
+            logErr.error("Error occurred while deleting the Inspire sessions {}", sessionId, err);
             throw err;
         }
     }
@@ -130,10 +125,10 @@ public class InspireSessionServiceImpl implements InspireSessionService {
     @Override
     public List<InspireSession> findByBreatheContentContainingIgnoreCase(String breatheKeyword) {
         if (breatheKeyword == null || breatheKeyword.isBlank()){
-            logInfo.info("No breathe keyword was provided so all Inspire sessions are being return");
+            logInfo.info("No breathe keyword was provided so all Inspire sessions are being returned");
             return inspireSessionRepository.findAll();
         }
-        logInfo.info("Findind Inspire sessions with the breatheContent containing '{}", breatheKeyword);
+        logInfo.info("Finding Inspire sessions with breatheContent containing '{}", breatheKeyword);
         return inspireSessionRepository.findByBreatheContentContainingIgnoreCase(breatheKeyword);
     }
 
@@ -141,7 +136,7 @@ public class InspireSessionServiceImpl implements InspireSessionService {
     @Override
     public List<InspireSession> findByLearnContentContainingIgnoreCase(String learnKeyword) {
         if (learnKeyword  == null || learnKeyword.isBlank()){
-            logInfo.info("No learn keyword was provided so all Inspire sessions are being return");
+            logInfo.info("No learn keyword was provided so all Inspire sessions are being returned");
             return inspireSessionRepository.findAll();
         } 
         logInfo.info("Finding Inspire sessions with learnContent containing '{}", learnKeyword);
@@ -152,13 +147,10 @@ public class InspireSessionServiceImpl implements InspireSessionService {
     @Override
     public List<InspireSession> findByQuoteContentContainingIgnoreCase(String quoteKeyword){
         if (quoteKeyword == null || quoteKeyword.isBlank()){
-            logInfo.info("No quote keyword was provided so all Inspire sessions are being return");
-            return inspireSessionRepository.findByQuoteContentContainingIgnoreCase(quoteKeyword);
+            logInfo.info("No quote keyword was provided so all Inspire sessions are being returned");
+            return inspireSessionRepository.findAll();
         }
         logInfo.info("Finding Inspire sessions with quoteContent containing '{}", quoteKeyword);
         return inspireSessionRepository.findByQuoteContentContainingIgnoreCase(quoteKeyword);
     }
-
-
-
 }
