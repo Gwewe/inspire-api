@@ -129,8 +129,12 @@ public class InspireSessionServiceImpl implements InspireSessionService {
 
     @Override
     public List<InspireSession> findByLearnContentContainingIgnoreCase(String learnKeyword) {
-        // todo
-        return null;
+        if (learnKeyword  == null || learnKeyword.isBlank()){
+            logInfo.info("No learn keyword was provided so all Inspire sessions are being return");
+            return inspireSessionRepository.findAll();
+        } 
+        logInfo.info("Finding Inspire sessions with learnContent containing '{}", learnKeyword);
+        return inspireSessionRepository.findByLearnContentContainingIgnoreCase(learnKeyword);
     }
 
 
