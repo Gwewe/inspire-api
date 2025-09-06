@@ -1,39 +1,48 @@
 package com.inspireapi.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.inspireapi.Exception.InspireSessionNotFound;
 import com.inspireapi.Model.InspireSession;
+import com.inspireapi.Model.ModuleType;
 import com.inspireapi.Repository.InspireSessionRepository;
+import com.inspireapi.Repository.ModuleRepository;
 
 
 @Service
 public class InspireSessionServiceImpl implements InspireSessionService {
 
     private final InspireSessionRepository inspireSessionRepository;
+    private final ModuleRepository moduleRepository;
+    private static final Logger logErr = LoggerFactory.getLogger(InspireSessionServiceImpl.class);
 
-    public InspireSessionServiceImpl(InspireSessionRepository inspireSessionRepository) {
+    public InspireSessionServiceImpl(InspireSessionRepository inspireSessionRepository, ModuleRepository moduleRepository) {
         this.inspireSessionRepository = inspireSessionRepository;
+        this.moduleRepository = moduleRepository;
     }
 
     @Override
-    public List<InspireSession> getAllSessions(){
+    public List<InspireSession> getAllSessions() {
         try {
             return inspireSessionRepository.findAll();
-        } catch (Exception e) {
-            System.err.println("Error occured while retrieving the InspireSessions list: " + e.getMessage());
+        } catch (RuntimeException err) {
+            logErr.error("Error occured while retrieving the InspireSessions list: " + err);
             return List.of();
         }
     }
 
     @Override
-    public Optional<InspireSession> getSessionById(UUID sessionId){
+    public InspireSession getSessionById(UUID sessionId) {
         try {
-            return inspireSessionRepository.findBySessionId(sessionId);
-        } catch (Exception e) {
+            return inspireSessionRepository.findById(sessionId);
+        } catch (InspireSessionNotFound e) {
             System.err.println("Error occured while retrieving the InspireSession by ID: " + sessionId + " - " + e.getMessage());
             return Optional.empty();
         }
@@ -48,15 +57,35 @@ public class InspireSessionServiceImpl implements InspireSessionService {
     }
 
     @Override
-    public Optional<InspireSession> updateInspireSession(UUID sessionId, InspireSession inspireSession) {
+    public InspireSession createInspireSessionFromModules(Map<ModuleType, UUID> moduleTypeToIdMap) {
         // TODO Auto-generated method stub
-        return Optional.empty();
+        return null;
     }
 
     @Override
-    public void deleteInspireSession(UUID sessionId) {
+    public InspireSession updateInspireSession(UUID sessionId, InspireSession inspireSession) {
         // TODO Auto-generated method stub
+        return null;
 
+    }
+
+    @Override
+    public InspireSession patchInspireSession(UUID sessionId, Map<String, String> updates){
+        // todo
+        return null;
+    }
+
+
+    @Override
+    public void deleteInspireSession(UUID sessionId) {
+        //todo
+        return null;
+    }
+
+    @Override
+    public List<InspireSession> findByLearnContentContainingIgnoreCase(String learnKeyword) {
+        // todo
+        return null;
     }
 
 
