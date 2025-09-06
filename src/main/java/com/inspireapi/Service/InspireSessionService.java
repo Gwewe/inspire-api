@@ -50,17 +50,6 @@ public interface InspireSessionService {
     InspireSession updateInspireSession(UUID sessionId, InspireSession updatedInspireSession);
 
     /**
-     * Partial update of an existing Inspire session
-     * The only allowed fields that can be updated are "breatheContent", "learnContent", and "quoteContent"
-     * @param sessionId the UUID of the InspireSession to update
-     * @param updates a map of module content fields to their corresponding new values
-     * @return the updated InspireSession
-     * @throws InvalidPatchFieldNameException if an invalid field name is provided in the updates map
-     * @throws InspireSessionNotFound if no Inspire session is found with the specified sessionId
-     */
-    InspireSession patchInspireSession(UUID sessionId, Map<String, String> updates);
-
-    /**
      * Delete a specific Inspire session by its sessionId
      * @param sessionId the UUID of the Inspire session to delete
      * @throws InspireSessionNotFound if no Inspire session is found with the specified sessionId

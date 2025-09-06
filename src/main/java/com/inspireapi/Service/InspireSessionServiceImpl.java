@@ -113,13 +113,6 @@ public class InspireSessionServiceImpl implements InspireSessionService {
     }
 
     @Override
-    public InspireSession patchInspireSession(UUID sessionId, Map<String, String> updates){
-        // todo
-        return null;
-    }
-
-
-    @Override
     public void deleteInspireSession(UUID sessionId) {
         //todo
         return null;
