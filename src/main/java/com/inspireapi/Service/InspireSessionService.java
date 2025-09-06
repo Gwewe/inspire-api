@@ -1,13 +1,10 @@
 package com.inspireapi.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import com.inspireapi.Exception.InspireSessionNotFound;
-import com.inspireapi.Exception.InvalidModuleTypeException;
 import com.inspireapi.Model.InspireSession;
-import com.inspireapi.Model.ModuleType;
 
 public interface InspireSessionService {
 
@@ -36,11 +33,9 @@ public interface InspireSessionService {
 
     /**
      * Create a new Inspire session from template modules
-     * @param moduleTypeToIdMap a map of module types to their corresponding moduleIds
      * @return the created Inspire session from template modules
-     * @throws InvalidModuleTypeException if an invalid module type is provided
      */
-    InspireSession createInspireSessionFromModules(Map<ModuleType, UUID> moduleTypeToIdMap);
+    InspireSession createInspireSessionFromModules();
 
     /**
      * Update all modules for a single session.

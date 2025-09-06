@@ -1,7 +1,6 @@
 package com.inspireapi.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -9,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.inspireapi.Exception.InspireSessionNotFound;
-import com.inspireapi.Exception.InvalidModuleTypeException;
-import com.inspireapi.Exception.ModuleNotFoundException;
 import com.inspireapi.Model.InspireSession;
 import com.inspireapi.Model.Module;
 import com.inspireapi.Model.ModuleType;
@@ -25,6 +22,10 @@ public class InspireSessionServiceImpl implements InspireSessionService {
     private final ModuleRepository moduleRepository;
     private static final Logger logErr = LoggerFactory.getLogger(InspireSessionServiceImpl.class);
     private static final Logger logInfo = LoggerFactory.getLogger(InspireSessionServiceImpl.class);
+
+    private int indexForBreathe = 0;
+    private int indexForLearn = 0;
+    private int indexForQuote = 0;
 
 
     public InspireSessionServiceImpl(InspireSessionRepository inspireSessionRepository, ModuleRepository moduleRepository) {
@@ -54,38 +55,26 @@ public class InspireSessionServiceImpl implements InspireSessionService {
     }
 
     @Override
-    public InspireSession createInspireSessionFromModules(Map<ModuleType, UUID> moduleTypeToIdMap) {
-        // Checking that to the map is not empty nor null
-        if (moduleTypeToIdMap == null || moduleTypeToIdMap.isEmpty()){
-            throw new InvalidModuleTypeException("My apologies, the module type to ID map cannot be null or empty.");
-        }
+    public InspireSession createInspireSessionFromModules() {
 
-        // New Inspire session
         InspireSession newSessionFromModules = new InspireSession();
 
-        for (Map.Entry<ModuleType, UUID> entry : moduleTypeToIdMap.entrySet()) {
-            ModuleType expectedType = entry.getKey();
-            UUID moduleId = entry.getValue();
+        List<Module> breatheModules = moduleRepository.findByModuleType(ModuleType.BREATHE);
+        if (!breatheModules.isEmpty()) {
+            newSessionFromModules.setBreatheContent(breatheModules.get(indexForBreathe).getModuleContent());
+            indexForBreathe = (indexForBreathe + 1) % breatheModules.size();
+        }
 
-            // Getting the module
-            Module module = moduleRepository.findById(moduleId)
-            .orElseThrow(() -> new ModuleNotFoundException(String.format("Module with ID %s not found", moduleId)));
+        List<Module> learnModules = moduleRepository.findByModuleType(ModuleType.LEARN);
+        if (!learnModules.isEmpty()) {
+            newSessionFromModules.setLearnContent(learnModules.get(indexForLearn).getModuleContent());
+            indexForLearn = (indexForLearn + 1) % learnModules.size();
+        }
 
-            //Validating that both type match
-            if (!module.getModuleType().equals(expectedType)) {
-                throw new InvalidModuleTypeException(
-                    String.format("The module ID %s is of type %s, the module type entered is %s.",
-                    moduleId, module.getModuleType(), expectedType)
-                );
-            }
-
-            //Assign the content based on the type
-            switch (expectedType) {
-                case BREATHE -> newSessionFromModules.setBreatheContent(module.getModuleContent());
-                case LEARN -> newSessionFromModules.setLearnContent(module.getModuleContent());
-                case QUOTE -> newSessionFromModules.setQuoteContent(module.getModuleContent());
-                default -> throw new InvalidModuleTypeException(String.format("Invalid module type %s", expectedType));
-            }
+        List<Module> quotesModules = moduleRepository.findByModuleType(ModuleType.QUOTE);
+        if (!quotesModules.isEmpty()) {
+            newSessionFromModules.setQuoteContent(quotesModules.get(indexForQuote).getModuleContent());
+            indexForQuote = (indexForQuote + 1) % quotesModules.size();
         }
         return inspireSessionRepository.save(newSessionFromModules);
     }
