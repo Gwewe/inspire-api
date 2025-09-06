@@ -40,14 +40,8 @@ public class InspireSessionServiceImpl implements InspireSessionService {
 
     @Override
     public InspireSession getSessionById(UUID sessionId) {
-        try {
-            return inspireSessionRepository.findById(sessionId);
-        } catch (InspireSessionNotFound e) {
-            System.err.println("Error occured while retrieving the InspireSession by ID: " + sessionId + " - " + e.getMessage());
-            return Optional.empty();
-        }
-        
-        
+        return inspireSessionRepository.findById(sessionId)
+        .orElseThrow(() -> new InspireSessionNotFound(String.format("Inspire session with ID %s not found", sessionId)));
     }
 
     @Override
