@@ -128,6 +128,17 @@ public class InspireSessionServiceImpl implements InspireSessionService {
     }
 
     @Override
+    public List<InspireSession> findByBreatheContentContainingIgnoreCase(String breatheKeyword) {
+        if (breatheKeyword == null || breatheKeyword.isBlank()){
+            logInfo.info("No breathe keyword was provided so all Inspire sessions are being return");
+            return inspireSessionRepository.findAll();
+        }
+        logInfo.info("Findind Inspire sessions with the breatheContent containing '{}", breatheKeyword);
+        return inspireSessionRepository.findByBreatheContentContainingIgnoreCase(breatheKeyword);
+    }
+
+
+    @Override
     public List<InspireSession> findByLearnContentContainingIgnoreCase(String learnKeyword) {
         if (learnKeyword  == null || learnKeyword.isBlank()){
             logInfo.info("No learn keyword was provided so all Inspire sessions are being return");
@@ -136,6 +147,18 @@ public class InspireSessionServiceImpl implements InspireSessionService {
         logInfo.info("Finding Inspire sessions with learnContent containing '{}", learnKeyword);
         return inspireSessionRepository.findByLearnContentContainingIgnoreCase(learnKeyword);
     }
+
+
+    @Override
+    public List<InspireSession> findByQuoteContentContainingIgnoreCase(String quoteKeyword){
+        if (quoteKeyword == null || quoteKeyword.isBlank()){
+            logInfo.info("No quote keyword was provided so all Inspire sessions are being return");
+            return inspireSessionRepository.findByQuoteContentContainingIgnoreCase(quoteKeyword);
+        }
+        logInfo.info("Finding Inspire sessions with quoteContent containing '{}", quoteKeyword);
+        return inspireSessionRepository.findByQuoteContentContainingIgnoreCase(quoteKeyword);
+    }
+
 
 
 }
