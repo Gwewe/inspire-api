@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -15,6 +16,7 @@ public class InspireSession {
 
     @Id
     @Column(name = "session_id")
+    @GeneratedValue
     private UUID sessionId;
 
     @Column(name = "breathe_content")
@@ -27,17 +29,19 @@ public class InspireSession {
     private String quoteContent;
 
     @Column(name = "created_at")
-    private Instant createdAt;
+    private final Instant createdAt;
 
     //Default constructor
-    public InspireSession() {}
+    public InspireSession() {
+        this.createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    }
 
     public InspireSession(UUID sessionId, String breatheContent, String learnContent, String quoteContent, Instant createdAt) {
         this.sessionId = sessionId;
         this.breatheContent = breatheContent;
         this.learnContent = learnContent;
         this.quoteContent = quoteContent;
-        this.createdAt = createdAt.truncatedTo(ChronoUnit.MILLIS);
+       this.createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS);
     }
 
     // Getters
@@ -73,14 +77,6 @@ public class InspireSession {
 
     public void setQuoteContent(String quoteContent) {
         this.quoteContent = quoteContent;
-    }
-
-    /**
-     * Truncating createdAt for a value to milliseconds precision.
-     * This matches the behavior in the constructor and ensures consistency with the database column definition.
-     */
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt.truncatedTo(ChronoUnit.MILLIS);
     }
 
 }
