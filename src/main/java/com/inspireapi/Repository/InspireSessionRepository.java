@@ -1,11 +1,9 @@
 package com.inspireapi.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.inspireapi.Model.InspireSession;
@@ -14,15 +12,6 @@ import com.inspireapi.Model.InspireSession;
 
 @Repository
 public interface InspireSessionRepository extends JpaRepository<InspireSession, UUID> {
-
-
-    /**
-     * Find an InspireSession by its sessionId
-     * @param sessionId the session UUID
-     * @return an Optional containing the InspireSession or empty if no InspireSession is found
-     */
-
-    Optional<InspireSession> findBySessionId(UUID sessionId);
 
     /**
      * Search for Inspire sessions containing a specific keyword in the breatheContent
