@@ -55,7 +55,7 @@ public interface InspireSessionService {
      * @param sessionId the UUID of the InspireSession to update
      * @param updates a map of module content fields to their corresponding new values
      * @return the updated InspireSession
-     * @throws IllegalArgumentException if an invalid field is provided in the updates map
+     * @throws InvalidPatchFieldNameException if an invalid field name is provided in the updates map
      * @throws InspireSessionNotFound if no Inspire session is found with the specified sessionId
      */
     InspireSession patchInspireSession(UUID sessionId, Map<String, String> updates);
