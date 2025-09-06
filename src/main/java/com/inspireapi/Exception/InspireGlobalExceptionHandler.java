@@ -40,7 +40,12 @@ public class InspireGlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, except.getMessage(), request);
     }
 
-
+    @ExceptionHandler(ModuleNotFoundException.class)
+    public ResponseEntity<Object> handleModuleNotFoundException (ModuleNotFoundException except, WebRequest request) {
+        loggerErr.warn("The provided module type was not found", except);
+        return buildResponse(HttpStatus.NOT_FOUND, except.getMessage(), request);
+    }
+    
     @ExceptionHandler(InvalidPatchFieldNameException.class)
     public ResponseEntity<Object> handleInvalidPatchFieldNameException(InvalidPatchFieldNameException except, WebRequest request) {
         loggerErr.warn("The provided patch field name is invalid", except);
