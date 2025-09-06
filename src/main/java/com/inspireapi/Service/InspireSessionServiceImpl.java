@@ -35,7 +35,7 @@ public class InspireSessionServiceImpl implements InspireSessionService {
         try {
             return inspireSessionRepository.findAll();
         } catch (RuntimeException err) {
-            logErr.error("Error occured while retrieving the InspireSessions list: " + err);
+            logErr.error("Error occured while retrieving the InspireSessions list {} " + err);
             return List.of();
         }
     }
@@ -51,7 +51,7 @@ public class InspireSessionServiceImpl implements InspireSessionService {
         try {
             return inspireSessionRepository.save(inspireSession);
         } catch (RuntimeException err) {
-            logErr.error("Error occured while creating the Inspire session: ", inspireSession, err);
+            logErr.error("Error occured while creating the Inspire session {} ", inspireSession, err);
             throw err;
         }
     }
@@ -95,9 +95,20 @@ public class InspireSessionServiceImpl implements InspireSessionService {
 
 
     @Override
-    public InspireSession updateInspireSession(UUID sessionId, InspireSession inspireSession) {
-        // TODO Auto-generated method stub
-        return null;
+    public InspireSession updateInspireSession(UUID sessionId, InspireSession updatedInspireSession) {
+        InspireSession inspireSession =  inspireSessionRepository.findById(sessionId)
+        .orElseThrow(() -> new InspireSessionNotFound(String.format("Inspire session with ID %s not found", sessionId)));
+
+        inspireSession.setBreatheContent(updatedInspireSession.getBreatheContent());
+        inspireSession.setLearnContent(updatedInspireSession.getLearnContent());
+        inspireSession.setQuoteContent(updatedInspireSession.getQuoteContent());
+
+        try {
+            return inspireSessionRepository.save(inspireSession);
+        } catch (RuntimeException err) {
+            logErr.error("Error occured while updating the Inspire session {} ", sessionId, err);
+            throw err;
+        }
 
     }
 
