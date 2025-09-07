@@ -29,11 +29,11 @@ public class InspireSession {
     private String quoteContent;
 
     @Column(name = "created_at")
-    private final Instant createdAt;
+    private Instant createdAt;
 
     //Default constructor
     public InspireSession() {
-        this.createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+        setCreatedAt(Instant.now());
     }
 
     public InspireSession(UUID sessionId, String breatheContent, String learnContent, String quoteContent, Instant createdAt) {
@@ -41,7 +41,7 @@ public class InspireSession {
         this.breatheContent = breatheContent;
         this.learnContent = learnContent;
         this.quoteContent = quoteContent;
-       this.createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+        setCreatedAt(createdAt);
     }
 
     // Getters
@@ -66,6 +66,14 @@ public class InspireSession {
     }
 
     //Setters
+
+    public void setCreatedAt(Instant createdAt) {
+        if (createdAt != null){
+            this.createdAt = createdAt.truncatedTo(ChronoUnit.MILLIS);
+        } else {
+            this.createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+        }
+    }
 
     public void setBreatheContent(String breatheContent) {
         this.breatheContent = breatheContent;
