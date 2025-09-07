@@ -33,7 +33,7 @@ public class InspireSession {
 
     //Default constructor
     public InspireSession() {
-        setCreatedAt(Instant.now());
+        this.createdAt = Instant.now();
     }
 
     public InspireSession(UUID sessionId, String breatheContent, String learnContent, String quoteContent, Instant createdAt) {
@@ -41,7 +41,7 @@ public class InspireSession {
         this.breatheContent = breatheContent;
         this.learnContent = learnContent;
         this.quoteContent = quoteContent;
-        setCreatedAt(createdAt);
+        this.createdAt = createdAt;
     }
 
     // Getters
