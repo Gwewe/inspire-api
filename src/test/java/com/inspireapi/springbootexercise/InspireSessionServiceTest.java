@@ -20,6 +20,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import com.inspireapi.Exception.InspireSessionNotFound;
 import com.inspireapi.Model.InspireSession;
+import com.inspireapi.Model.Module;
+import com.inspireapi.Model.ModuleType;
 import com.inspireapi.Repository.InspireSessionRepository;
 import com.inspireapi.Repository.ModuleRepository;
 import com.inspireapi.Service.InspireSessionService;
@@ -112,7 +114,7 @@ public class InspireSessionServiceTest {
 
     @DisplayName("return the new Inspire session")
     @Test
-    void testcreateInspireSession() {
+    void testCreateInspireSession() {
         UUID randomUuid = UUID.randomUUID();
         InspireSession inspireSessionThree = new InspireSession(
             randomUuid, 
@@ -133,6 +135,44 @@ public class InspireSessionServiceTest {
         assertEquals("Quote test content", newInspireSession.getQuoteContent());
 
         Mockito.verify(mockInspireSessionRepository).save(inspireSessionThree);
+    }
+
+    @DisplayName("")
+    @Test
+    void testCreateInspireSessionFromModules() {
+        Module breatheModule = new Module(
+            UUID.randomUUID(),
+            ModuleType.BREATHE,
+            "Breathe test content"
+        );
+        Module learnModule = new Module(
+            UUID.randomUUID(),
+            ModuleType.LEARN,
+            "Learn test content"
+        );
+        Module quoteModule = new Module(
+            UUID.randomUUID(),
+            ModuleType.QUOTE,
+            "Quote test content"
+        );
+
+        Mockito.when(mockModuleRepository.findByModuleType(ModuleType.BREATHE)).thenReturn(List.of(breatheModule));
+        Mockito.when(mockModuleRepository.findByModuleType(ModuleType.LEARN)).thenReturn(List.of(learnModule));
+        Mockito.when(mockModuleRepository.findByModuleType(ModuleType.QUOTE)).thenReturn(List.of(quoteModule));
+
+        Mockito.when(mockInspireSessionRepository.save(Mockito.any(InspireSession.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        InspireSession newInspireSessionFromModules = mockInspireSessionService.createInspireSessionFromModules();
+
+        assertNotNull(newInspireSessionFromModules);
+        assertEquals("Breathe test content", newInspireSessionFromModules.getBreatheContent());
+        assertEquals("Learn test content", newInspireSessionFromModules.getLearnContent());
+        assertEquals("Quote test content", newInspireSessionFromModules.getQuoteContent());
+        
+        Mockito.verify(mockModuleRepository).findByModuleType(ModuleType.BREATHE);
+        Mockito.verify(mockModuleRepository).findByModuleType(ModuleType.LEARN);
+        Mockito.verify(mockModuleRepository).findByModuleType(ModuleType.QUOTE);
+        Mockito.verify(mockInspireSessionRepository).save(Mockito.any(InspireSession.class));
     }
 
     @DisplayName("Updating existing Inspire session")
