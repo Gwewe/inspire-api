@@ -63,12 +63,11 @@ public class InspireSessionController {
         @ApiResponse(responseCode = "400", description = "Failed to create Inspire session: Invalid or bad request"),
         @ApiResponse(responseCode = "500", description = "An error occurred: Internal Server Error")
     })
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<InspireSession> createInspireSession(@RequestBody InspireSession inspireSession) {
         InspireSession newInspireSessionCreated = inspireSessionService.createInspireSession(inspireSession);
         return ResponseEntity.status(HttpStatus.CREATED).body(newInspireSessionCreated);
     }
-
 
     @Operation(summary = "Create a new Inspire session from modules", description = "Return new Inspire session created from existing modules")
     @ApiResponses(value = {

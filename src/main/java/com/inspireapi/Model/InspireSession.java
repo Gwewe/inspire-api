@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class InspireSession {
 
     @Id
-    @Column(name = "session_id")
+    @Column(name = "session_id", length = 36, columnDefinition = "CHAR(36)")
     @GeneratedValue
     private UUID sessionId;
 

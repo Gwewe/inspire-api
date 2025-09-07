@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class Module {
 
     @Id
-    @Column(name = "module_id")
+    @Column(name = "module_id", length = 36, columnDefinition = "CHAR(36)")
     @GeneratedValue
     private UUID moduleId;
 
