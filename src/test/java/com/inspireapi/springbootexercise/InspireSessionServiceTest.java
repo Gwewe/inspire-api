@@ -6,9 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -16,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import com.inspireapi.Exception.InspireSessionNotFound;
 import com.inspireapi.Model.InspireSession;
@@ -54,7 +51,7 @@ public class InspireSessionServiceTest {
 
         inspireSessionTwo = new InspireSession(
             UUID.randomUUID(),
-            "Complete five full breaths cycle. Each breath cycle (inhale and exhale) should last about 12 seconds.",
+            "Breathe : complete five full breaths cycle. Each breath cycle (inhale and exhale) should last about 12 seconds.",
             "Hiding internal data from the outside world, and accessing it only through publicly exposed methods is known as data Encapsulation.",
             "Hide nothing, for time, which sees all and hears all, exposes all. - Sophocles",
             Instant.now()
@@ -84,7 +81,7 @@ public class InspireSessionServiceTest {
         assertTrue(inspireSessions.contains(inspireSessionTwo));
     }
 
-    @DisplayName("return the Inspire session with the specific ID")
+    @DisplayName("return the Inspire session with the specific sessionId")
     @Test
     void testGetExistingInspireSessionById(){
         Mockito.when(mockInspireSessionRepository.save(Mockito.any(InspireSession.class))).thenAnswer(invocation -> invocation.getArgument(0));
@@ -97,7 +94,7 @@ public class InspireSessionServiceTest {
         Mockito.verify(mockInspireSessionRepository).findById(inspireSessionOne.getSessionId());
     }
 
-    @DisplayName("return the InspireSessionNotFound exception was a non existing ID is passed")
+    @DisplayName("return the InspireSessionNotFound exception when a nonExistingId is passed")
     @Test
     void testGetNonExistingInspireSessionById() {
         UUID nonExistingId = UUID.fromString("f81d40fae-7dec-11d0-a70065-00e68bf6");
@@ -111,8 +108,7 @@ public class InspireSessionServiceTest {
         }
     }
 
-
-    @DisplayName("return the new Inspire session")
+    @DisplayName("return new Inspire session")
     @Test
     void testCreateInspireSession() {
         UUID randomUuid = UUID.randomUUID();
@@ -137,7 +133,7 @@ public class InspireSessionServiceTest {
         Mockito.verify(mockInspireSessionRepository).save(inspireSessionThree);
     }
 
-    @DisplayName("return a new Inspire session from modules")
+    @DisplayName("return new Inspire session from template modules")
     @Test
     void testCreateInspireSessionFromModules() {
         Module breatheModule = new Module(
@@ -175,7 +171,7 @@ public class InspireSessionServiceTest {
         Mockito.verify(mockInspireSessionRepository).save(Mockito.any(InspireSession.class));
     }
 
-    @DisplayName("Updating existing Inspire session")
+    @DisplayName("return the updated Inspire session")
     @Test
     void testUpdatingExistingInspireSession() {
         Mockito.when(mockInspireSessionRepository.save(Mockito.any(InspireSession.class))).thenAnswer(invocation -> invocation.getArgument(0));
@@ -229,6 +225,57 @@ public class InspireSessionServiceTest {
         Mockito.verify(mockInspireSessionRepository).findById(nonExistingId);
         Mockito.verify(mockInspireSessionRepository, Mockito.never()).delete(Mockito.any());
    
+    }
+
+    @DisplayName("return a list of Inspire sessions containing the keyword in breatheContent")
+    @Test
+    void testFindByBreatheContentContainingIgnoreCase() {
+        String testKeyword = "BREATHE";
+        List<InspireSession> allSessions = List.of(inspireSessionOne, inspireSessionTwo);
+
+        Mockito.when(mockInspireSessionRepository.findByBreatheContentContainingIgnoreCase(testKeyword)).thenReturn(allSessions);
+
+        List<InspireSession> searchResult = mockInspireSessionService.findByBreatheContentContainingIgnoreCase(testKeyword);
+
+        assertNotNull(searchResult);
+        assertEquals(2, searchResult.size());
+        assertTrue(searchResult.contains(inspireSessionOne));
+        assertTrue(searchResult.contains(inspireSessionTwo));
+
+        Mockito.verify(mockInspireSessionRepository).findByBreatheContentContainingIgnoreCase(testKeyword);
+    }
+
+    @DisplayName("return a list of Inspire sessions containing the specified keyword in the learnContent")
+    @Test
+    void testFindByLearnContentContainingIgnoreCase() {
+        String testKeyword = "JAVA";
+        List<InspireSession> allSessions = List.of(inspireSessionOne, inspireSessionTwo);
+
+        Mockito.when(mockInspireSessionRepository.findByLearnContentContainingIgnoreCase(testKeyword)).thenReturn(allSessions);
+
+        List<InspireSession> searchResult = mockInspireSessionService.findByLearnContentContainingIgnoreCase(testKeyword);
+
+        assertNotNull(searchResult);
+        assertEquals(2, searchResult.size());
+        assertTrue(searchResult.contains(inspireSessionOne));
+        assertTrue(searchResult.contains(inspireSessionTwo));
+
+        Mockito.verify(mockInspireSessionRepository).findByLearnContentContainingIgnoreCase(testKeyword);
+    }
+
+    @DisplayName("return a list of Inspire sessions containing the keyword in quoteContent")
+    @Test
+    void testFindByQuoteContentContainingIgnoreCase() {
+        String testKeyword = "SUCCESS";
+        Mockito.when(mockInspireSessionRepository.findByQuoteContentContainingIgnoreCase(testKeyword)).thenReturn(List.of(inspireSessionOne));
+
+        List<InspireSession> searchResult = mockInspireSessionService.findByQuoteContentContainingIgnoreCase(testKeyword);
+
+        assertNotNull(searchResult);
+        assertEquals(1, searchResult.size());
+        assertTrue(searchResult.contains(inspireSessionOne));
+
+        Mockito.verify(mockInspireSessionRepository).findByQuoteContentContainingIgnoreCase(testKeyword);
     }
 
 }

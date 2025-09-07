@@ -27,21 +27,21 @@ public interface InspireSessionService {
     /**
      * Create a new Inspire session.
      * @param inspireSession the Inspire session to create
-     * @return the created Inspire session
+     * @return new Inspire session
      */
     InspireSession createInspireSession(InspireSession inspireSession);
 
     /**
      * Create a new Inspire session from template modules
-     * @return the created Inspire session from template modules
+     * @return new Inspire session from template modules
      */
     InspireSession createInspireSessionFromModules();
 
     /**
      * Update all modules for a single session.
-     * @param sessionId the UUID of the InspireSession to update
-     * @param inspireSession the updated InspireSession data
-     * @return the updated InspireSession, or null if not found
+     * @param sessionId the UUID of the Inspire session to update
+     * @param inspireSession the updated Inspire session data
+     * @return the updated Inspire session
      * @throws InspireSessionNotFound if no Inspire session is found with the specified sessionId
      */
     InspireSession updateInspireSession(UUID sessionId, InspireSession updatedInspireSession);
@@ -56,7 +56,7 @@ public interface InspireSessionService {
     /**
      * Find Inspire sessions containing a specific keyword in the breatheContent
      * @param breatheKeyword the keyword to search for in breatheContent
-     * @return a list of Inspire Sessions containing the keyword in breatheContent
+     * @return a list of Inspire sessions containing the keyword in breatheContent
      */
     List<InspireSession> findByBreatheContentContainingIgnoreCase(String breatheKeyword);
 
@@ -70,7 +70,7 @@ public interface InspireSessionService {
     /**
      * Find Inspire sessions containing a specific keyword in the quoteContent
      * @param quoteKeyword the keyword to search for in quoteContent
-     * @return a list of InspireSessions containing the keyword in quoteContent
+     * @return a list of Inspire sessions containing the keyword in quoteContent
      */
     List<InspireSession> findByQuoteContentContainingIgnoreCase(String quoteKeyword);
 
