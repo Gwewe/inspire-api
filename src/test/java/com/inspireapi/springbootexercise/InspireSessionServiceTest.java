@@ -137,7 +137,7 @@ public class InspireSessionServiceTest {
         Mockito.verify(mockInspireSessionRepository).save(inspireSessionThree);
     }
 
-    @DisplayName("")
+    @DisplayName("return a new Inspire session from modules")
     @Test
     void testCreateInspireSessionFromModules() {
         Module breatheModule = new Module(
@@ -198,6 +198,37 @@ public class InspireSessionServiceTest {
         
         Mockito.verify(mockInspireSessionRepository).findById(inspireSessionOne.getSessionId());
         Mockito.verify(mockInspireSessionRepository).save(inspireSessionOne);
+    }
+
+    @DisplayName("delete Inspire session")
+    @Test
+    void testDeleteExistingInspireSession() {
+        UUID existingId = inspireSessionOne.getSessionId();
+        Mockito.when(mockInspireSessionRepository.findById(inspireSessionOne.getSessionId())).thenReturn(Optional.of(inspireSessionOne));
+
+        mockInspireSessionService.deleteInspireSession(existingId);
+
+        Mockito.verify(mockInspireSessionRepository).findById(existingId);
+        Mockito.verify(mockInspireSessionRepository).delete(inspireSessionOne);
+   
+    }
+
+    @DisplayName("failed to delete Inspire session as the ID does not exist")
+    @Test
+    void testDeleteNonExistingInspireSession() {
+        UUID nonExistingId = UUID.fromString("f81d40fae-7dec-11d0-a70065-00e68bf6");
+        Mockito.when(mockInspireSessionRepository.findById(nonExistingId)).thenReturn(Optional.empty());
+
+        try {
+            mockInspireSessionService.deleteInspireSession(nonExistingId);
+            fail("Failed because this is a not existing ID, the InspireSessionNotFound exception will be thrown");
+        } catch (InspireSessionNotFound err) {
+            assertEquals("Inspire session with ID " + nonExistingId + " not found", err.getMessage());
+        }
+
+        Mockito.verify(mockInspireSessionRepository).findById(nonExistingId);
+        Mockito.verify(mockInspireSessionRepository, Mockito.never()).delete(Mockito.any());
+   
     }
 
 }
