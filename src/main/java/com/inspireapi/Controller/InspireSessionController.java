@@ -35,10 +35,10 @@ public class InspireSessionController {
         this.inspireSessionService = inspireSessionService;
     }
 
-    @Operation(summary = "Retrieve all the Inspire sessions", description = "Returns a list of all Inspire sessions")
+    @Operation(summary = "Get all the Inspire sessions", description = "Return a list of all Inspire sessions")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Successfully retrived all Inspire sessions"),
-        @ApiResponse(responseCode = "404", description = "No Inspire sessions found."),
+        @ApiResponse(responseCode = "404", description = "No Inspire sessions found"),
         @ApiResponse(responseCode = "500", description = "An error occured: Internal Server Error")
     })
     @GetMapping
@@ -47,11 +47,23 @@ public class InspireSessionController {
     }
 
 
+    @Operation(summary = "Get an Inspire session", description = "Return a specifc Inspire session with its ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successfully retrived Inspire session with its ID"),
+        @ApiResponse(responseCode = "404", description = "No Inspire session found"),
+        @ApiResponse(responseCode = "500", description = "An error occured: Internal Server Error")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<InspireSession> getSessionById(@PathVariable UUID sessionId) {
         return ResponseEntity.ok(inspireSessionService.getSessionById(sessionId));
     }
 
+    @Operation(summary = "Create a new Inspire session", description = "Return new Inspire session")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Successfully created new Inspire session"),
+        @ApiResponse(responseCode = "400", description = "Failed to create Inspire session"),
+        @ApiResponse(responseCode = "500", description = "An error occured: Internal Server Error")
+    })
     @PostMapping("/")
     public ResponseEntity<InspireSession> createInspireSession(@RequestBody InspireSession inspireSession) {
         InspireSession newInspireSessionCreated = inspireSessionService.createInspireSession(inspireSession);
@@ -59,6 +71,12 @@ public class InspireSessionController {
     }
 
 
+    @Operation(summary = "Create a new Inspire session from modules", description = "Return new Inspire session created from existing modules")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Successfully created new Inspire session from modules"),
+        @ApiResponse(responseCode = "400", description = "Failed to create Inspire session from modules"),
+        @ApiResponse(responseCode = "500", description = "An error occured: Internal Server Error")
+    })
     @PostMapping("/from-modules")
     public ResponseEntity<InspireSession> createInspireSessionFromModules() {
         InspireSession newInspireSessionFromModule = inspireSessionService.createInspireSessionFromModules();
@@ -66,27 +84,57 @@ public class InspireSessionController {
   
     }
 
+    @Operation(summary = "Update a Inspire session", description = "Update an existing Inspire session with its ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successfully updated Inspire session"),
+        @ApiResponse(responseCode = "404", description = "No Inspire session found."),
+        @ApiResponse(responseCode = "500", description = "An error occured: Internal Server Error")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<InspireSession> updateInspireSession(@PathVariable UUID sessionId, @RequestBody InspireSession updatedInspireSession) {
         return ResponseEntity.ok(inspireSessionService.updateInspireSession(sessionId, updatedInspireSession));
     }
 
+    @Operation(summary = "Delete a Inspire session", description = "Delete a Inspire session with its ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Successfully deleted Inspire session with its ID"),
+        @ApiResponse(responseCode = "404", description = "No Inspire session found"),
+        @ApiResponse(responseCode = "500", description = "An error occured: Internal Server Error")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInspireSession(@PathVariable UUID sessionId){
         inspireSessionService.deleteInspireSession(sessionId);
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Search for Breathe content using breatheKeyword", description = "Return a list of Inspire sessions matching breatheKeyword")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successfully retrived all Inspire sessions matching breatheKeyword"),
+        @ApiResponse(responseCode = "404", description = "No Inspire sessions found matching breatheKeyword"),
+        @ApiResponse(responseCode = "500", description = "An error occured: Internal Server Error")
+    })
     @GetMapping("search/breathe")
     public ResponseEntity<List<InspireSession>> findByBreatheContentContainingIgnoreCase(@RequestParam String breatheKeyword) {
         return ResponseEntity.ok(inspireSessionService.findByBreatheContentContainingIgnoreCase(breatheKeyword));
     }
 
+    @Operation(summary = "Search for Learn content using learnKeyword", description = "Return a list of all Inspire sessions matching learnKeyword")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successfully retrived all Inspire sessions matching learnKeyword"),
+        @ApiResponse(responseCode = "404", description = "No Inspire sessions found matching learnKeyword"),
+        @ApiResponse(responseCode = "500", description = "An error occured: Internal Server Error")
+    })
     @GetMapping("search/learn")
     public ResponseEntity<List<InspireSession>> findByLearnContentContainingIgnoreCase(@RequestParam String learnKeyword) {
         return ResponseEntity.ok(inspireSessionService.findByLearnContentContainingIgnoreCase(learnKeyword));
     }
 
+    @Operation(summary = "Search for Quote content using quoteKeyword", description = "Return a list of all Inspire sessions matching quoteKeyword")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successfully retrived all Inspire sessions matching quoteKeyword"),
+        @ApiResponse(responseCode = "404", description = "No Inspire sessions found matching quoteKeyword"),
+        @ApiResponse(responseCode = "500", description = "An error occured: Internal Server Error")
+    })
     @GetMapping("search/quote")
     public ResponseEntity<List<InspireSession>> findByQuoteContentContainingIgnoreCase(@RequestParam String quoteKeyword) {
         return ResponseEntity.ok(inspireSessionService.findByQuoteContentContainingIgnoreCase(quoteKeyword));
