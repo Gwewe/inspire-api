@@ -1,5 +1,4 @@
-# Inspire API
-# Spring Boot InspireAPI
+# Inspire API :leaves: 
 
 The Inspire API serves inspirational content in three categories:
 - **Breathe** – guided breathing exercises
