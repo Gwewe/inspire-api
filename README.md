@@ -36,10 +36,6 @@ Inspire Api strives to find a solution for this problem by exploring ways to hel
       <a href="#running-the-application">Running the Application</a>
     </li>
     <li>
-      <a href="#api-endpoints-documentation">API Endpoints Documentation</a>
-    </li>
-    <li>
-      <a href="#project-structure">Project Structure</a>
     </li>
     <li>
       <a href="#contributing">Contributing</a>
