@@ -8,13 +8,15 @@ Inspire Api strives to find a solution for this problem by exploring ways to hel
 ## Inspire's approach:
 
    - **Breathe :wind_chime:** → We start with a short breathing exercise designed to help us slow down, be present, and shift out of a fight-or-flight state. This creates the mental space needed for learning.
-   <br>
+ 
    - **Learn :books:** → Once we feel calmer and more receptive, we are presented with a brief and varied learning exercise. 
-   <br>
+
    - **Quote :thought_balloon:** → We conclude with a reflective quote that encourages introspection. This quote helps us connect the new knowledge to our own lives and environments.
 
-<br>
+
+
 <!-- TABLE OF CONTENTS -->
+
 <details>
   <summary>Table of Contents</summary>
   <ol>
