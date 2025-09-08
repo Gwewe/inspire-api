@@ -1,6 +1,9 @@
 package com.inspireapi.Model;
 
+import java.sql.Types;
 import java.util.UUID;
+
+import org.hibernate.annotations.JdbcTypeCode;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,8 +18,9 @@ import jakarta.persistence.Table;
 public class Module {
 
     @Id
-    @Column(name = "module_id", length = 36, columnDefinition = "CHAR(36)")
     @GeneratedValue
+    @JdbcTypeCode(Types.VARCHAR)
+    @Column(name = "module_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
     private UUID moduleId;
 
     @Enumerated(EnumType.STRING)

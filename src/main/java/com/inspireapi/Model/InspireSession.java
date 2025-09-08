@@ -1,8 +1,11 @@
 package com.inspireapi.Model;
 
+import java.sql.Types;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
+
+import org.hibernate.annotations.JdbcTypeCode;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,9 +17,10 @@ import jakarta.persistence.Table;
 @Table(name = "inspire_sessions")
 public class InspireSession {
 
-    @Id
-    @Column(name = "session_id", length = 36, columnDefinition = "CHAR(36)")
+     @Id
     @GeneratedValue
+    @JdbcTypeCode(Types.VARCHAR)
+    @Column(name = "session_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
     private UUID sessionId;
 
     @Column(name = "breathe_content")
