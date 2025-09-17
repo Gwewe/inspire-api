@@ -95,8 +95,7 @@ Inspire Api strives to find a solution for this problem by exploring ways to hel
 
 
 ### <u>Usage</u>
-
-
+---
 ### *Features*
 
 - **GET all** and **GET by ID** for sessions and modules
@@ -202,5 +201,5 @@ Thank you for considering contributing to this project!
 
 ### <u>License</u>
 
-The Report API project is licensed under the MIT License.
+The Inspire API project is licensed under the MIT License.
 
