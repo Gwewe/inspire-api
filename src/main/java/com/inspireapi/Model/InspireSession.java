@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Table(name = "inspire_sessions")
 public class InspireSession {
 
-     @Id
+    @Id
     @GeneratedValue
     @JdbcTypeCode(Types.VARCHAR)
     @Column(name = "session_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)

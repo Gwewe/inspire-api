@@ -35,6 +35,8 @@ Inspire Api strives to find a solution for this problem by exploring ways to hel
     <li>
       <a href="#running-the-application">Running the Application</a>
     </li>
+   <li>
+    <a href="api-endpoints-documentation"> API Endpoints Documentation</a>
     <li>
       <a href="#contributing">Contributing</a>
     </li>
@@ -143,6 +145,41 @@ Launch Postman if installed and send a POST request to your API endpoint:
 ### Postman
 
 ![Postman](postman.png)
+
+---
+### <u> API Endpoints Documentation </u>
+
+Follow this link to [the Swagger UI documentation](http://localhost:8080/swagger-ui/index.html) to explore the API endpoints.
+![SwaggerUI](swagger_images/swaggerUI.png)
+
+- Get all the Inspire sessions
+
+![GetAll](swagger_images/get_all.png)
+
+- Get an Inspire session
+
+![GetByID](swagger_images/get_by_id.png)
+
+- Create a new Inspire session
+
+![Post](swagger_images/post.png)
+
+- Create a new Inspire session from modules
+
+![PostModule](swagger_images/post_modules.png)
+
+- Update a Inspire session
+
+![Update](swagger_images/update.png)
+
+- Delete a Inspire session
+
+![Delete](swagger_images/delete.png)
+
+- Search for Quote content using quoteKeyword
+
+![Quote](swagger_images/quote.png)
+
 
 ---
 ### <u>Contributing</u>
